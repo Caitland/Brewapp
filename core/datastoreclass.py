@@ -1,67 +1,68 @@
 import csv
+import pymysql
+
+NAME_INDEX = 0
+ORDERS_INDEX = 1
+TOTAL_INDEX = 2
+
+RECEIPTS = "customer_receipts"
+
+NAME_COLUMN = 'name'
+ORDERS_COLUMN = 'orders'
+TOTAL_COLUMN = 'total_sum'
+
+class SQLDB():
 
 #Data persistence
-def load_list_from_file(path):
-        data = []  
+    def __init__(self, host='localhost', db='brewapp', port=3306, user='root', password='password'):
+        self.__host = host
+        self.__db = db
+        self.__port = port
+        self.__user = user 
+        self.__password = password
+
+    def __make_connection(self):
+        return pymysql.connect(host=self.__host,
+                               user=self.__user,
+                               password=self.__password,
+                               db=self.__db,
+                               port=self.__port)
+    
+  #  def read(self):
+   #     print ("read")
+    #    cursor = connection.cursor()
+     #   cursor.execute("SELECT name, drink FROM favourites")
+      #  for row in cursor:
+       #     print(row)
+
+    def load_orders(self, customer_receipts):
+    data = []
+    connection = self.__make_connection()
+    try:
+        with connection.cursor() as cursor:
+            sql = f'SELECT * FROM {ORDERS}'
+            cursor.execute(sql)
+            while True:
+                order_data = cursor.fetchone()
+                if not order_data:
+                    break
+                    data.append(RECEIPTS(
+                    order_data[NAME_INDEX],
+                    order_data[ORDERS_INDEX,]
+                    order_data[TOTAL_INDEX],
+                ))
+            connection.commit()
+        finally:
+            connection.close()
+            return data
+
+    def insert_order(self, customer_receipts):
+        connection = self.__make_connection()
         try:
-            with open(path, 'r') as file:
-                for line in file.readlines():
-                    data.append(line.strip())
-                return data
-    #Incase of errors
-        except FileNotFoundError:
-            print(f'Unable to load necessary data from: {path}')
-            exit()
-        
-        except Exception as e:
-            print(f'Unable to lead necessary data from: {path}. Error: {str(e)}')
-
-    #Load from file function    
-def loader_func():
-    print("loading data")
-    for person in load_list_from_file(PEOPLE_FILE_PATH):
-        people.append(person)
-    for drink in load_list_from_file(DRINKS_FILE_PATH):
-       drinks.append(drink)
-    for order in load_list_from_file(ORDER_FILE_PATH):
-       order.append(order)
- 
-
-#def save_data():
-#Save people
-    with open(PEOPLE_FILE_PATH, 'w') as file:
-        file.writelines([f'{person}\n' for person in people])
-#Save drinks
-    with open(DRINKS_FILE_PATH, 'w') as file:
-        file.writelines([f'{drink}\n' for drink in drinks])
-#Save orders
-    with open(ORDER_FILE_PATH, 'w') as file:
-        file.writelines([f'{order}\n' for order in orders])
-##################################################
-
-    # data is expected to be a list of lists
-    def save_to_csv(self, data):
-        try:
-            with open(self.path, 'w') as file:
-                writer = csv.writer(file)
-                writer.writerows(data)
-        except FileNotFoundError as e:
-            print(
-                f'File "{self.path}" cannot be found with error: {str(e)} - exiting')
-
-    # Returns list of lists
-    def read_csv(self):
-        try:
-            with open(self.path, 'r') as file:
-                data = []
-                reader = csv.reader(file, delimiter=',')
-                for row in reader:
-                    data.append(row)
-                return data
-        except FileNotFoundError as e:
-            print(
-                f'File "{self.path}" cannot be found with error: {str(e)} - exiting')
-        
-    people = load_list_from_file(PEOPLE_FILE_PATH)
-    drinks = load_list_from_file(DRINKS_FILE_PATH)
-    favourites = dict(zip(people, drinks))
+            with connection.cursor() as cursor:
+                data = [name, orders, total_sum]
+                sql = f' INSERT INTO {RECEIPTS} ({NAME_COLUMN}, {ORDERS_COLUMN}, {TOTAL_COLUMN}) VALUES (%s, %s, %s, %s)'
+                cursor.execute(sql, data)
+                connection.commit()
+            finally:
+                connection.close()

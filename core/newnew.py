@@ -1,19 +1,20 @@
 import io
 import csv
 import pymysql
-#from brew_app.sources import datastore
+#from datastoreclass import datastore
+#from data_.receipts import customer_receipts
 
 ORDER_ARG = 1
-FAVE_DRINK_ARG = 2
-ADD_DRINKS = 3
+ADD_DRINKS = 2
+FAVE_DRINK_ARG = 3
 RECEIPTS_ARG = 4
 EXIT_ARG = 5
 MENU = '''
 Welcome to BrewApp!
 
 [1] Make an order
-[2] Favourite drinks list
-[3] Add drink
+[2] Add drink
+[3] Favourite drinks list
 [4] Customer reciepts
 [5] Exit
 '''
@@ -25,43 +26,13 @@ ORDER_FILE_PATH = r'C:\Users\mylaptop\Desktop\brew_app\data_\order_file.csv'
 #DATASTORE_FILE_PATH = r'C:\Users\mylaptop\Desktop\brew_app\core\datastoreclass.py'
 
 #App data
-prices = {'Coffee' : '£2.50', 'Tea' : '£2.00', 'Green Tea' : "£2.00", 'Water' : '£1.00'}
+
+prices = {'Coffee' : 2.50, 'Tea' : 2.00, 'Green Tea' : 2.00, 'Water' : 1.00}
 
 orders = []
 total = []
 name = ''
 total_sum = 0
-temp_names = []
-
-#def main():
- #   connection = pymysql.connect(host = "localhost", port = 33066, user = "root", password = "password", db = "Brewapp"
-  #  )
-
-   # cursor = connection.cursor()
-    #cursor.execute("SELECT name, drink FROM favourites")
-    #rows = cursor.fetchall()
-
-    #for row in rows:
-     #   print(row) 
-
-    #cursor.close()
-    #connection.close()
-
-#def insert():
- # connection = pymysql.connect()
-  #connection = pymysql.connect(host = "localhost", port = 33066, user = "root", password = "password", db = "Brewapp")
-
-   # try:
-    #    with connection.cursor() as cursor:
-     #   cursor.execute('INSERT INTO favourites (name, drinks) VALUES (new_name, new_drink)')
-      #  connection.commit()
-    #cursor.close()
-
-    #finally:
-     #   connection.close()
-
-#if __name__ == '__main__':
- # main() 
 
 #Data persistence
 def load_list_from_file(path):
@@ -121,22 +92,11 @@ def regular_welcome(favourites, name):
             pass
 
         elif user_input == 'yes':
-            if favourites[name] == 'Coffee':
-                total.append(2.50)
-                orders.append(favourites[name])
-
-            elif favourites[name] == 'Tea':
-                total.append(2.00)
-                orders.append(favourites[name])
-
-            elif favourites[name] == 'Green tea':
-                total.append(2.00)
-                orders.append(favourites[name])
-
-            elif favourites[name] == 'Water':
-                total.append(1.00)
-                orders.append(favourites[name])
-
+            if  favourites[name] in prices:
+                for key, value in prices.items():
+                    if key == favourites[name]:
+                        orders.append(key)
+                        total.append(value)         
 #Welcome and save new customer names
 def new_customer_welcome(name, people):
     if name not in people:
@@ -145,26 +105,14 @@ def new_customer_welcome(name, people):
 def customer_order(user_input):
     user_input = input(f'''\nType a drink from the price list to add to your order: {prices}\n 
                                 (Type \'done\' when you have finished adding to your order.)\n''').title()
-
-    if user_input == 'Coffee':
-        total.append(2.50)
-        orders.append(user_input)
-        return customer_order(user_input)
-
-    elif user_input == 'Tea':
-        total.append(2.00)
-        orders.append(user_input)
-        return customer_order(user_input)
-
-    elif user_input == 'Green tea':
-        total.append(2.00)
-        orders.append(user_input)
-        return customer_order(user_input)
-
-    elif user_input == 'Water':
-        total.append(1.00)
-        orders.append(user_input)
-        return customer_order(user_input)
+    if user_input in prices:
+        for key, value in prices.items():
+            if key == user_input:
+                orders.append(key)
+                total.append(value)
+                print (total)
+                print (orders)
+                return customer_order(user_input)
 
     elif user_input == 'Done':
         total_sum = sum(total)
@@ -192,7 +140,6 @@ favourites = dict(zip(people, drinks))
 def start():
   #  Datastore
     loader_func()
- #   main()
     run()
 
 def run():
@@ -209,8 +156,6 @@ def run():
         
 #IF USER SELECTS 1 FROM MENU:
         if user_selection == ORDER_ARG:
-      #      global name
-       #     global total_sum
             name = (input('\nWhat is your name?:\n').title())
             regular_welcome(favourites, name)
             new_customer_welcome(name, people)
@@ -229,8 +174,8 @@ def run():
 #IF USER SELECTS 2 FROM MENU:
         if user_selection == ADD_DRINKS:
             user_input = input('Type a drink you would like to add\n').title()
-            print (f'Added {user_input} to price list, you can now choose this drink when you want to make an order.\n')
-            new_price = input('How much does this drink cost?')
+            print (f'You can now choose \'{user_input}\' when you make an order.\n')
+            new_price = int(input('How much does this drink cost?\n'))
             prices[user_input] = new_price
             wait()
          
@@ -275,5 +220,5 @@ def run():
             print("Goodbye!")
             exit()
 #entry point
-if __name__ =="__main__":
+if __name__ == "__main__":
     start()

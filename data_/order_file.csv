@@ -1,1 +1,9 @@
-name, drinks
+Joe,"['Water', 'Water', 'Coffee', 'Tea']",6.5
+
+Jackie,"['Coffee', 'Coffee', 'Water']",6.0
+
+Caitland,"['Coffee', 'Tea']",4.5
+
+
+name,orders
+,"['Tea', 'Yes']",0
