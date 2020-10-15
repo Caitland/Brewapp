@@ -41,7 +41,7 @@ def main():
     connection.close()
 
 def insert()
-  connection = pymysql.conect(
+  connection = pymysql.connect(
   connection = pymysql.connect(host = "localhost", port = 33066, user = "root", password = "password", db = "Brewapp"
   )
   cursor = connection.cursor()

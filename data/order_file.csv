@@ -1,0 +1,78 @@
+Joe,"['Water', 'Water', 'Coffee', 'Tea']",6.5
+
+Jackie,"['Coffee', 'Coffee', 'Water']",6.0
+
+Caitland,"['Coffee', 'Tea']",4.5
+
+name,orders,price
+,['Tea'],0
+name,orders,price
+name,orders,price
+name,orders,price
+,"['Tea', 'Coffee']",4.5
+name,orders,price
+,"['Tea', 'Water', 'Tea']",5.0
+name,orders,price
+,"['Tea', 'Coffee']",4.5
+name,orders,price
+,"['Tea', 'Coffee']",4.5
+name,orders,price
+,"['Tea', 'Coffee']",4.5
+name,orders,price
+,"['Tea', 'Coffee', 'Green Tea']",6.5
+name,orders,price
+,"['Tea', 'Coffee', 'Green Tea']",6.5
+name,orders,price
+,"['Tea', 'Coffee']",4.5
+name,orders,price
+,"['Tea', 'Coffee']",4.5
+name,orders,price
+,"['Tea', 'Coffee', 'Green Tea']",6.5
+name,orders,price
+,"['Coffee', 'Tea']",4.5
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,"['Coffee', 'Tea']",4.5
+name,orders,price
+,"['Coffee', 'Tea']",4.5
+name,orders,price
+,['Green Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,[],0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,['Tea'],2.0
+name,orders,price
+,"['Coffee', 'Tea', 'Coffee']",7.0
+name,orders,price
+,"['Green Tea', 'Tea', 'Coffee', 'Tea', 'Tea']",10.5
+name,orders,price
+,"['Tea', 'Coffee', 'Green Tea']",6.5
+name,orders,price
+,[],0
+name,orders,price
+,[],0
+name,orders,price
+,[],0
+name,orders,price
+,"['Tea', 'Coffee', 'Green Tea']",6.5
+name,orders,price
+,[],0

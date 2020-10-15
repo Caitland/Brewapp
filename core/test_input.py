@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
-from brewapp2 import handle_favourite_drinks, customer_order
+from newnew import handle_favourite_drinks, customer_order
 
 #def handle_favourite_drinks(new_name, new_drink, drinks):
  #   while new_drink not in prices:
@@ -18,7 +18,6 @@ class Test_Methods(unittest.TestCase):
             mock_input = 'Tea'
             new_drink = 'Tea'
             drinks = []
-            prices = ['Tea']
             #act
             handle_favourite_drinks(new_name, new_drink, drinks)
             #assert
